@@ -1,0 +1,16 @@
+# Backend
+shopease-backend/.idea/
+shopease-backend/target/
+shopease-backend/.env
+
+# Frontend
+shopease-frontend/node_modules/
+shopease-frontend/dist/
+shopease-frontend/.env
+
+# Archives
+*.zip
+
+# OS files
+.DS_Store
+Thumbs.db
