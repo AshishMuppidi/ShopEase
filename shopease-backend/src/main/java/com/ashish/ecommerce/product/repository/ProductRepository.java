@@ -12,10 +12,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    @EntityGraph(attributePaths = {"category"})
+   @EntityGraph(attributePaths = {"category", "images"})
     Page<Product> findByCategoryIdAndActiveTrue(Long categoryId, Pageable pageable);
 
-    @EntityGraph(attributePaths = {"category"})
+    @EntityGraph(attributePaths = {"category", "images"})
     @Query("""
             SELECT p FROM Product p
             WHERE p.active = true
@@ -33,13 +33,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             @Param("minRating") Double minRating,
             Pageable pageable);
 
-    @EntityGraph(attributePaths = {"category"})
+    @EntityGraph(attributePaths = {"category", "images"})
     Page<Product> findByActiveTrue(Pageable pageable);
 
-    @EntityGraph(attributePaths = {"category"})
+    @EntityGraph(attributePaths = {"category", "images"})
     java.util.List<Product> findByCategoryIdAndIdNotOrderByIdDesc(Long categoryId, Long excludeId, Pageable pageable);
 
-    @EntityGraph(attributePaths = {"category"})
+    @EntityGraph(attributePaths = {"category", "images"})
     @Query("SELECT DISTINCT v.product FROM ProductVariant v WHERE v.originalPrice IS NOT NULL AND v.originalPrice > 0 AND v.originalPrice > v.price AND v.product.active = true")
     Page<Product> findDeals(Pageable pageable);
 
