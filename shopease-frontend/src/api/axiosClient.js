@@ -2,7 +2,7 @@ import axios from 'axios'
 import { tokenStore } from './tokenStore'
 
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'
+  import.meta.env.VITE_API_BASE_URL || 'https://shopease-y3fj.onrender.com/api'
 
 // Main client — all app requests go through this instance.
 const axiosClient = axios.create({
