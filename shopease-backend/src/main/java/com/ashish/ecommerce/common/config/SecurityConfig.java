@@ -86,24 +86,24 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .authorizeHttpRequests(auth -> auth
-                        // 1. Allow public auth endpoints
-                        .requestMatchers("/api/auth/**").permitAll()
+               .authorizeHttpRequests(auth -> auth
+        // 1. Allow public auth endpoints
+        .requestMatchers("/api/auth/**").permitAll()
 
-                        // 2. Allow payment webhooks (secured via HMAC signature verification)
-                        .requestMatchers("/api/payments/webhook").permitAll()
+        // 2. Allow payment webhooks
+        .requestMatchers("/api/payments/webhook").permitAll()
 
-                        // 3. Allow public read-only access to products & categories
-                        .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/variants/**").permitAll()
+        // 3. Allow public read-only access to products & categories
+        .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+        .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
+        .requestMatchers(HttpMethod.GET, "/api/variants/**").permitAll()
 
-                        // 3. Restrict all admin endpoints to ROLE_ADMIN — backend is the authority
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+        // 3. Restrict all admin endpoints to ROLE_ADMIN
+        .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-                        // 4. All other endpoints require authentication
-                        .anyRequest().authenticated()
-                )
+        // 4. All other endpoints require authentication
+        .anyRequest().authenticated()
+)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
